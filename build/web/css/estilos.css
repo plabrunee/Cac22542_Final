@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    background: #ffffff;
+    font-family: 'Poppins', sans-serif;
+}
+
+p {
+    margin-top: 15px;
+}
+
+hr {
+    background-color: orange;
+    height: 15px;
+    margin-top: -5px;
+    margin-bottom: -5px;
+}
+
+#header {
+    margin: 0px;
+    width: 500px;
+    position: fixed;
+    z-index: 2;
+    text-align: right;
+}
+
+ul {
+    list-style: none;
+}
+
+.nav li a {
+    background-color: rgb(10,11,12);
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+}
+
+.nav li a:hover {
+    background-color: rgb(58,58,36);
+}
+
+.nav > li {
+    float: left;
+}
+
+.nav li ul {
+    display: none;
+    position: absolute;
+    min-width: 140px;
+}
+
+.nav li:hover > ul {
+    display: block;
+    position: relative;
+}
+
+.nav li ul li {
+    position: relative;
+}
+
+.nav li ul li ul {
+    right: -140px;
+    top: -45px;
+    /* position: relative; */
+}
+
+.imagen {
+    z-index: 1;
+    position: relative;
+    margin: 0px;
+    /* Agregados */
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.texto {
+    z-index: 1;
+    position: relative;
+    margin: 20px 30px 0px 30px;
+    text-align: justify;
+}
+
+
+/* Agregados */
+/* #nuestraHistoria {
+    display: block;
+} */
+
+p::first-letter {
+    margin-left: 50px;
+    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: bold;
+    color:rgb(148, 31, 146);
+}
+
+#fondoDos {
+    max-width: 45%;
+    max-height: 45%;
+    display: inline;
+}
+
+/*  Fin agregados   */
