@@ -77,7 +77,7 @@ public class Checkuser extends HttpServlet {
 
                 
                 out.println("<h1>Proyecto en: " + request.getContextPath() + "</h1>");
-                out.println("<h3>Usuario <b>" + request.getParameter("inputEmail") + "</b> logueado correctamente.</h3>");
+                out.println("<h3>Usuario <strong>" + request.getParameter("inputEmail") + "</strong> logueado correctamente.</h3>");
             }
             
 
