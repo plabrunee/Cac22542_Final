@@ -36,13 +36,6 @@ public class Checkuser extends HttpServlet {
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet Checkuser</title>");            
-//            out.println("</head>");
-//            out.println("<body>;
             
             String usuario = request.getParameter("inputEmail");
             String clave = request.getParameter("inputPassword");
@@ -62,10 +55,11 @@ public class Checkuser extends HttpServlet {
                 registros++;
             }
             
-            //if(resultado.first() == false) {
+            resultado.first();
+            
             if (registros == 0) {
                 out.println("No existen usuarios con éstos datos.<br/>");
-                out.println(sql);
+                out.println("<br/><a href='login.html'>Volver</a>");
             } else {
                 
                 while (resultado.next()) {
@@ -75,16 +69,11 @@ public class Checkuser extends HttpServlet {
                     out.println(resultado.getString("apellido") + "<br/>");
                 }
 
-                
                 out.println("<h1>Proyecto en: " + request.getContextPath() + "</h1>");
                 out.println("<h3>Usuario <strong>" + request.getParameter("inputEmail") + "</strong> logueado correctamente.</h3>");
+                out.println("<br/><br/><a href='login.html'>Volver</a>");
             }
             
-
-//            out.println("<h1>La clave es: " + request.getParameter("inputPassword") + "</h1>");
-            
-//            out.println("</body>");
-//            out.println("</html>");
         }
     }
 

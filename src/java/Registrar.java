@@ -30,42 +30,43 @@ public class Registrar extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.sql.SQLException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet Registrar</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet Registrar at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
 
             String nombre = request.getParameter("inputNombre") ;
             String apellido = request.getParameter("inputApellido");
             String usuario = request.getParameter("inputUsuario");
             String clave = request.getParameter("inputPassword");
             
-            String sql = "INSERT INTO usuarios (usuario, clave, nombre, apellido)"
-                    + " VALUES"
-                        + " ('"+usuario+"', '"+clave+"', '"+nombre+"', '"+apellido+"')"
+            Persistencia base = new Persistencia();
+            
+            /*  Insertamos el nuevo usuario         */
+            int i = base.insertaUsuario(usuario, clave, nombre, apellido);
+            out.println(i+" usuario/s generado/s.");
+            
+            /*  Chequeamos el usuario creado        */
+            
+            ResultSet resultado;
+            String sql2 = "SELECT usuario, clave, nombre, apellido FROM usuarios"
+                    + " WHERE usuario = '"+ usuario +"'"
+                    + " AND clave = '"+ clave +"';"
             ;
             
-            out.println(sql);
+            resultado = base.consultaSQL(sql2);
             
-            Persistencia base = new Persistencia();
-            ResultSet resultado;
-            
-            //Verificando el correcto guardado del usuario (de manera primitiva)
-            //sql = "SELECT * FROM usuarios WHERE usuario = "+usuario;
-            resultado = base.insertaUsuario(usuario, clave, nombre, apellido);
-            
-            out.println(resultado);
+            while (resultado.next()) {
+                    out.println("<br/><br/>Usuario ");
+                    out.println(resultado.getString("usuario")+"<br/>");
+                    out.println("Nombre ");
+                    out.println(resultado.getString("nombre")+"<br/>");
+                    out.println("Apellido ");
+                    out.println(resultado.getString("apellido")+"<br/>");
+                    out.println("<br/>Generado.<br/>");
+            }
             
         }
     }

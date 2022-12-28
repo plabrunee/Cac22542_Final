@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-12-2022 a las 19:04:51
+-- Tiempo de generación: 28-12-2022 a las 15:43:16
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `cac22542`
+-- Base de datos: `cac22542proyecto`
 --
 
 -- --------------------------------------------------------
@@ -29,20 +29,20 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `localidades` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(60) NOT NULL,
+  `nombre` varchar(60) COLLATE utf8mb4_spanish_ci NOT NULL,
   `idProvincia` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `localidades`
 --
 
 INSERT INTO `localidades` (`id`, `nombre`, `idProvincia`) VALUES
-(1, 'Moreno', 4),
-(3, 'Guaymallén', 5),
-(4, 'Cafayate', 2),
-(5, 'San Miguel', 1),
-(6, 'San Pedro', 2);
+(1, 'Guaymallén', 2),
+(2, 'Moreno', 3),
+(3, 'Cafayate', 4),
+(4, 'San Pedro', 4),
+(5, 'San Miguel', 1);
 
 -- --------------------------------------------------------
 
@@ -52,20 +52,20 @@ INSERT INTO `localidades` (`id`, `nombre`, `idProvincia`) VALUES
 
 CREATE TABLE `pedidos` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(40) NOT NULL,
-  `apellido` varchar(40) NOT NULL,
-  `usuario` varchar(20) NOT NULL,
-  `mail` varchar(30) NOT NULL,
-  `entrega` varchar(80) NOT NULL,
+  `nombre` varchar(30) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `apellido` varchar(30) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `usuario` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `mail` varchar(60) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `lugarEntrega` varchar(60) COLLATE utf8mb4_spanish_ci NOT NULL,
   `localidad` int(11) NOT NULL,
   `provincia` int(11) NOT NULL,
-  `cpostal` varchar(9) NOT NULL,
-  `formadepago` varchar(1) NOT NULL,
-  `tarjtitular` varchar(40) NOT NULL,
-  `tarjnumero` int(16) NOT NULL,
-  `tarjvto` varchar(10) NOT NULL,
-  `tarjclave` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `codPostal` varchar(9) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `formaPago` varchar(1) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `tarjetaTitular` varchar(60) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `tarjetaNumero` int(16) NOT NULL,
+  `tarjetaVto` varchar(5) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `tarjetaClave` int(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -75,8 +75,8 @@ CREATE TABLE `pedidos` (
 
 CREATE TABLE `provincias` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `nombre` varchar(30) COLLATE utf8mb4_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `provincias`
@@ -84,10 +84,9 @@ CREATE TABLE `provincias` (
 
 INSERT INTO `provincias` (`id`, `nombre`) VALUES
 (1, 'Tucumán'),
-(2, 'Salta'),
-(3, 'Córdoba'),
-(4, 'Buenos Aires'),
-(5, 'Mendoza');
+(2, 'Mendoza'),
+(3, 'Buenos Aires'),
+(4, 'Salta');
 
 -- --------------------------------------------------------
 
@@ -97,18 +96,19 @@ INSERT INTO `provincias` (`id`, `nombre`) VALUES
 
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
-  `usuario` varchar(30) NOT NULL,
-  `mail` varchar(50) NOT NULL,
-  `clave` varchar(60) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `usuario` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `clave` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(30) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `apellido` varchar(30) COLLATE utf8mb4_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `usuario`, `mail`, `clave`) VALUES
-(1, 'Pablo', '', 'laclave1'),
-(2, 'Pablo', '', 'laclave1');
+INSERT INTO `usuarios` (`id`, `usuario`, `clave`, `nombre`, `apellido`) VALUES
+(1, 'prueba@gmail.com', '909090', 'Leandro', 'Grammatico'),
+(2, 'pablo@gmail.com', 'Clave01', 'Pablo', 'Labrunée');
 
 --
 -- Índices para tablas volcadas
@@ -118,8 +118,7 @@ INSERT INTO `usuarios` (`id`, `usuario`, `mail`, `clave`) VALUES
 -- Indices de la tabla `localidades`
 --
 ALTER TABLE `localidades`
-  ADD UNIQUE KEY `ix_idLocalidad` (`id`),
-  ADD KEY `fk_Provincia` (`idProvincia`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `pedidos`
@@ -147,7 +146,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `localidades`
 --
 ALTER TABLE `localidades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
@@ -159,13 +158,13 @@ ALTER TABLE `pedidos`
 -- AUTO_INCREMENT de la tabla `provincias`
 --
 ALTER TABLE `provincias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Restricciones para tablas volcadas
@@ -175,7 +174,7 @@ ALTER TABLE `usuarios`
 -- Filtros para la tabla `localidades`
 --
 ALTER TABLE `localidades`
-  ADD CONSTRAINT `fk_Provincia` FOREIGN KEY (`idProvincia`) REFERENCES `provincias` (`id`);
+  ADD CONSTRAINT `fkProvincia` FOREIGN KEY (`idProvincia`) REFERENCES `provincias` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -50,7 +50,7 @@ public class Persistencia {
     //======================================================================================
     public ResultSet consultaSQL(String consulta) throws SQLException {
         
-        prepSt = conectar().prepareStatement(consulta, 2);
+        prepSt = conectar().prepareStatement(consulta, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         resu = prepSt.executeQuery();
         rsm = resu.getMetaData();
         
@@ -58,22 +58,25 @@ public class Persistencia {
         
     }
     
-    public ResultSet insertaUsuario(String usuario, String clave, String nombre, String apellido) throws SQLException {
+    public int insertaUsuario(String usuario, String clave, String nombre, String apellido) throws SQLException {
         
-        PreparedStatement psInsertaUsuario;
+        PreparedStatement ps;
+        Connection conn = conectar();
         
-        psInsertaUsuario = conectar().prepareStatement("INSERT INTO usuarios VALUES (?, ?, ?, ?);", PreparedStatement.RETURN_GENERATED_KEYS);
+        ps = conn.prepareStatement("INSERT INTO usuarios (usuario, clave, nombre, apellido) VALUES (?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
         
-        psInsertaUsuario.setString(1, usuario);
-        psInsertaUsuario.setString(2, clave);
-        psInsertaUsuario.setString(3, nombre);
-        psInsertaUsuario.setString(4, apellido);
+        ps.setString(1, usuario);
+        ps.setString(2, clave);
+        ps.setString(3, nombre);
+        ps.setString(4, apellido);
         
-        psInsertaUsuario.executeUpdate();
+        int i = ps.executeUpdate();
         
-        ResultSet rs = psInsertaUsuario.getGeneratedKeys();
+        ps.close();
+        conn.close();
+        //ResultSet rs = psInsertaUsuario.getGeneratedKeys();
         
-        return rs;
+        return i;
         
     }
 }
