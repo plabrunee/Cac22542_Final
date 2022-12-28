@@ -52,8 +52,8 @@ public class Registrar extends HttpServlet {
             String clave = request.getParameter("inputPassword");
             
             String sql = "INSERT INTO usuarios (usuario, clave, nombre, apellido)"
-                    + "VALUES"
-                        + "('"+usuario+"', '"+clave+"', '"+nombre+"', '"+apellido+"')"
+                    + " VALUES"
+                        + " ('"+usuario+"', '"+clave+"', '"+nombre+"', '"+apellido+"')"
             ;
             
             out.println(sql);

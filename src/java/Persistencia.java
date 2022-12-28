@@ -60,7 +60,7 @@ public class Persistencia {
     
     public ResultSet insertaUsuario(String usuario, String clave, String nombre, String apellido) throws SQLException {
         
-        PreparedStatement psInsertaUsuario = null;
+        PreparedStatement psInsertaUsuario;
         
         psInsertaUsuario = conectar().prepareStatement("INSERT INTO usuarios VALUES (?, ?, ?, ?);", PreparedStatement.RETURN_GENERATED_KEYS);
         
