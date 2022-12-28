@@ -64,7 +64,6 @@ public class Checkuser extends HttpServlet {
                 
                 while (resultado.next()) {
                     out.println(resultado.getString("usuario"));
-                    out.println(resultado.getString("clave"));
                     out.println(resultado.getString("nombre"));
                     out.println(resultado.getString("apellido") + "<br/>");
                 }

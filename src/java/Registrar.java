@@ -68,6 +68,8 @@ public class Registrar extends HttpServlet {
                     out.println("<br/>Generado.<br/>");
             }
             
+            out.println("<br/><br/><a href='login.html'>Volver</a>");
+            
         }
     }
 
