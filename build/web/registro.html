@@ -8,8 +8,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <title>CAC#22542 - Registro de usuario</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/registro.css"/>
     </head>
     <body>
-        <div>TODO write content</div>
+        <h3>Ingrese los datos solicitados:</h3>
+        <form action="registrar" method="post">
+            <label for="inputNombre">Nombre</label>
+            <input type="text" name="inputNombre" id="inputNombre"/>
+            <label for="inputApellido">Apellido</label>
+            <input type="text" name="inputApellido" id="inputApellido">
+            <label for="inputUsuario">Nombre de usuario (mail)</label>
+            <input type="text" name="inputUsuario" id="inputUsuario">
+            <label for="inputPassword">Clave</label>
+            <input type="password" name="inputPassword" id="inputPassword">
+            <input type="submit" value="Enviar">
+        </form>
+        <form action="login.html" method="post">
+            <button class="botonCancelar">Cancelar</button>
+        </form>
     </body>
 </html>

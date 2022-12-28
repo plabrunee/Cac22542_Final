@@ -57,4 +57,23 @@ public class Persistencia {
         return resu;
         
     }
+    
+    public ResultSet insertaUsuario(String usuario, String clave, String nombre, String apellido) throws SQLException {
+        
+        PreparedStatement psInsertaUsuario = null;
+        
+        psInsertaUsuario = conectar().prepareStatement("INSERT INTO usuarios VALUES (?, ?, ?, ?);", PreparedStatement.RETURN_GENERATED_KEYS);
+        
+        psInsertaUsuario.setString(1, usuario);
+        psInsertaUsuario.setString(2, clave);
+        psInsertaUsuario.setString(3, nombre);
+        psInsertaUsuario.setString(4, apellido);
+        
+        psInsertaUsuario.executeUpdate();
+        
+        ResultSet rs = psInsertaUsuario.getGeneratedKeys();
+        
+        return rs;
+        
+    }
 }
